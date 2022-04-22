@@ -33,7 +33,7 @@ static void initialize_fbdev() {
                 strerror(errno));
         exit(1);
     }
-
+    
     fmt->println("info: succ create framebuffer");
 }
 
@@ -52,32 +52,32 @@ void tkSwapBuffers(void) {
 int ui_loop(int argc, char **argv, const char *name) {
 
     int done;
-    // int i;
-    // int k;
+    int i;
+    int k;
 
     // TODO: 增加键盘输入支持
 
     // 初始化glx上下文
     ctx = fbdev_glXCreateContext();
-
+    
     if (ctx == NULL) {
         return -1;
     }
 
     initialize_fbdev();
-
+    
     fbdev_glXMakeCurrent(ctx);
-
-    fmt->printf("debug:tk.cpp: succ create cxt at %x, gl_context at %x\n", (unsigned int)ctx, (unsigned int)(ctx->gl_context));
-
-    fmt->printf("debug:tk.cpp: succ create zbuf{%d,%d,%d,%d} at %x\n", ctx->gl_context->zb->xsize, ctx->gl_context->zb->ysize, ctx->gl_context->zb->linesize, ctx->gl_context->zb->mode, (unsigned int)(ctx->gl_context->zb));
+    
+    fmt->printf("debug:tk.cpp: succ create cxt at %x, gl_context at %x\n", ctx, ctx->gl_context);
+    
+    fmt->printf("debug:tk.cpp: succ create zbuf{%d,%d,%d,%d} at %x\n", ctx->gl_context->zb->xsize, ctx->gl_context->zb->ysize, ctx->gl_context->zb->linesize, ctx->gl_context->zb->mode, ctx->gl_context->zb);
 
     picotk_init();
-
+    
     fmt->printf("debug:tk.cpp: toggle reshaping (%d,%d)\n", SCREEN_WIDTH, SCREEN_HEIGHT);
-
+    
     reshape(SCREEN_WIDTH, SCREEN_HEIGHT);
-
+    
     fmt->printf("debug:tk.cpp: reshaped (%d,%d), start render loop\n", SCREEN_WIDTH, SCREEN_HEIGHT);
 
     done = 0;

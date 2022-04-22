@@ -9,7 +9,6 @@
 extern "C" {
 #endif
 
-#include <stdlib.h>
 void *getFrameBuffer();
 
 size_t sizeOfFrameBuffer();
